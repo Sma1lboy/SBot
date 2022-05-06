@@ -1,6 +1,7 @@
 # SBot
-The discord music bot made by java 
-
+The discord music bot made by java
+## Installation
+Download it and add the bot token on it, and click the start.java file that's itg 
 
 #### Contributor
 
