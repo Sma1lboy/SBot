@@ -13,18 +13,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         JDA jda = JDABuilder.createDefault(BOT_TOKEN)
-                .setActivity(Activity.listening("Testing"))
+                .setActivity(Activity.listening("Music 1.0"))
+
                 .addEventListeners(new HelpCommand())
                 .addEventListeners(new BotCommand())
                 .build();
 
         jda.upsertCommand("help", "help command promptout").queue();
         jda.upsertCommand("play", "play song").addOption(STRING, "url", "name of the song or url").queue();
-        jda.upsertCommand("join", "Join the discord if the bot hasn't yet").queue();
-        jda.upsertCommand("leave", "leave the voice channel").queue();
         jda.upsertCommand("stop", "stop the music").queue();
         jda.upsertCommand("skip", "skip currently song").queue();
         jda.upsertCommand("clear", "Clear the tracks list").queue();
+        jda.upsertCommand("info", "showing the info that now playing").queue();
 
 
 

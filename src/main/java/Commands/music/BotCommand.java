@@ -1,6 +1,8 @@
 package Commands.music;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import lavaplayer.GuildMusicManager;
 import lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.AudioChannel;
@@ -26,34 +28,33 @@ public class BotCommand extends ListenerAdapter {
         this.manager = e.getGuild().getAudioManager();
         this.connectedChannel = e.getMember().getVoiceState().getChannel();
         final GuildMusicManager musicManager = PlayerManager.getInstance().getMusicManager(e.getGuild());
-        if (e.getName().equals("join")) {
-            if (checkIfUserNotInChannel()) {
-                e.deferReply().queue();
-                e.getHook().sendMessage("You are not in the channel").queue();
-            } else {
-                manager.openAudioConnection(connectedChannel);
-                e.deferReply().queue();
-                e.getHook().sendMessage("SBot already in the channel!").queue();
-            }
-        } else if (e.getName().equals("leave")) {
-            manager.closeAudioConnection();
-            e.deferReply().queue();
-            e.getHook().sendMessage("SBot already close!").queue();
-        } else if (e.getName().equals("play")) {
+
+        if (e.getName().equals("play")) {
             //TODO have to check some precondition before the music start
             if (checkIfUserNotInChannel()) {
                 e.deferReply().queue();
                 e.getHook().sendMessage("You are not in the channel").queue();
                 return;
             } else {
+
+
                 OptionMapping url = e.getOption("url");
-                System.out.println(url);
                 if (url != null) {
                     String urlStr = url.getAsString();
                     if (!isUrl(urlStr)) {
                         urlStr = "ytsearch:" + urlStr;
                     }
+                    if(!Objects.requireNonNull(e.getGuild().getSelfMember().getVoiceState()).inAudioChannel()) {
+                        manager.openAudioConnection(connectedChannel);
+                    }
+                    //TODO not working with play command in different channel
+//                    if(connectedChannel != e.getGuild().getSelfMember().getVoiceState().getChannel()) {
+//                        e.deferReply().queue();
+//                        e.getHook().sendMessage("You need to stay with your bot").queue();
+//                        return;
+//                    }
                     PlayerManager.getInstance().loadAndPlay(e.getTextChannel(), urlStr);
+                    e.deferReply().queue();
                 } else {
                     e.deferReply().queue();
                     e.getHook().sendMessage("please correct use the commmand /play <youtube link>").queue();
@@ -65,6 +66,16 @@ public class BotCommand extends ListenerAdapter {
             if (!e.getMember().getVoiceState().inAudioChannel()) {
                 e.deferReply().queue();
                 e.getHook().sendMessage("`Before you using this command, you have to stay in the channel`").queue();
+                return;
+            }
+            if(e.getGuild().getSelfMember().getVoiceState().getChannel() == null) {
+                e.deferReply().queue();
+                e.getHook().sendMessage("Before you using this command, SBot has to stay `in the channel`").queue();
+                return;
+            }
+            if (connectedChannel != e.getGuild().getSelfMember().getVoiceState().getChannel()) {
+                e.deferReply().queue();
+                e.getHook().sendMessage("You are not in the same channel with the bot!").queue();
                 return;
             }
 
@@ -86,6 +97,17 @@ public class BotCommand extends ListenerAdapter {
                 return;
             }
             musicManager.scheduler.nextTrack();
+        } else if ( e.getName().equals("info")) {
+            final AudioTrack track = musicManager.audioPlayer.getPlayingTrack();
+            if(track == null) {
+                e.deferReply().queue();;
+                e.getHook().sendMessage("there is not such song currenly playing").queue();
+                return;
+            }
+            final AudioTrackInfo info = track.getInfo();
+            e.deferReply();
+            e.getHook().sendMessageFormat("Now playing  `%s` by `%s` (link<%s>)", info.title, info.author, info.uri).queue();
+
         }
 
     }

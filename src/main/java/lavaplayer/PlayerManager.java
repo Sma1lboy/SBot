@@ -45,14 +45,17 @@ public class PlayerManager {
                 channel.sendMessage("Playing track ")
                         .append(track.getInfo().title).queue();
             }
-
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
                 final List<AudioTrack> tracks = playlist.getTracks();
-                channel.sendMessage("from playlist ").append(playlist.getName()).queue();
-                for(AudioTrack track : tracks) {
-                     musicManager.scheduler.queue(track);
-                }
+//                channel.sendMessage("from playlist ").append(playlist.getName()).append(""+tracks.size()).queue();
+//                for(AudioTrack track : tracks) {
+//                    channel.sendMessage(track.getInfo().title).queue();
+//                     musicManager.scheduler.queue(track);
+//                }
+                musicManager.scheduler.queue(tracks.get(0));
+                channel.sendMessage("Playing track ")
+                        .append(tracks.get(0).getInfo().title).queue();
             }
 
             @Override
