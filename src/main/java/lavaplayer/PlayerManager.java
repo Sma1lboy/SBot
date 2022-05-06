@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerManager {
@@ -47,7 +48,11 @@ public class PlayerManager {
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
-
+                final List<AudioTrack> tracks = playlist.getTracks();
+                channel.sendMessage("from playlist ").append(playlist.getName()).queue();
+                for(AudioTrack track : tracks) {
+                     musicManager.scheduler.queue(track);
+                }
             }
 
             @Override
