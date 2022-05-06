@@ -1,9 +1,11 @@
 import Commands.HelpCommand;
 import Commands.music.BotCommand;
-import Commands.MessageRecvied;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+
+import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 
 
 public class Main {
@@ -13,14 +15,14 @@ public class Main {
         JDA jda = JDABuilder.createDefault(BOT_TOKEN)
                 .setActivity(Activity.listening("Testing"))
                 .addEventListeners(new HelpCommand())
-                .addEventListeners(new MessageRecvied())
                 .addEventListeners(new BotCommand())
                 .build();
 
         jda.upsertCommand("help", "help command promptout").queue();
-        jda.upsertCommand("play", "play song").queue();
+        jda.upsertCommand("play", "play song").addOption(STRING, "url", "name of the song or url").queue();
         jda.upsertCommand("join", "Join the discord if the bot hasn't yet").queue();
         jda.upsertCommand("leave", "leave the voice channel").queue();
+
 
 
 

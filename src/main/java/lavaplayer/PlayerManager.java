@@ -9,6 +9,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class PlayerManager {
             return guildMusicManager;
         });
     }
-    public void loadAndPlay(TextChannel channel,  String url) {
+    public void loadAndPlay(TextChannel channel, String url) {
         final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
 
         this.audioPlayerManager.loadItemOrdered(musicManager, url, new AudioLoadResultHandler() {
@@ -41,7 +42,7 @@ public class PlayerManager {
             public void trackLoaded(AudioTrack track) {
                 musicManager.scheduler.queue(track);
                 channel.sendMessage("Playing track ")
-                        .append(track.getInfo().title);
+                        .append(track.getInfo().title).queue();
             }
 
             @Override
@@ -60,7 +61,7 @@ public class PlayerManager {
             }
         });
     }
-    private static PlayerManager getINSTANCE() {
+    public static PlayerManager getInstance() {
         if(INSTANCE == null) {
             INSTANCE = new PlayerManager();
         }
