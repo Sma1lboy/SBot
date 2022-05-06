@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="64688811-0a73-4fe2-af7f-ac6692ec7e11" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/MessageRecvied.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Commands/music/BotCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Commands/music/BotCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lavaplayer/PlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lavaplayer/PlayerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Commands/MessageRecvied.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Commands/music/BotCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Commands/music/BotCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +78,7 @@
       <workItem from="1651640311535" duration="140000" />
       <workItem from="1651718676287" duration="10609000" />
       <workItem from="1651795815458" duration="110000" />
-      <workItem from="1651804866046" duration="645000" />
+      <workItem from="1651804866046" duration="1098000" />
     </task>
     <servers />
   </component>
