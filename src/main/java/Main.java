@@ -14,7 +14,6 @@ public class Main {
 
         JDA jda = JDABuilder.createDefault(BOT_TOKEN)
                 .setActivity(Activity.listening("Music 1.0"))
-
                 .addEventListeners(new HelpCommand())
                 .addEventListeners(new BotCommand())
                 .build();
@@ -26,9 +25,6 @@ public class Main {
         jda.upsertCommand("clear", "Clear the tracks list").queue();
         jda.upsertCommand("info", "showing the info that now playing").queue();
         jda.upsertCommand("fb", "send feedback to the bot owner").addOption(STRING, "content", "the feedback content").queue();
-
-
-
 
     }
 }
