@@ -8,6 +8,7 @@ import lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.entities.AudioChannel;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -107,6 +108,16 @@ public class BotCommand extends ListenerAdapter {
             final AudioTrackInfo info = track.getInfo();
             e.deferReply();
             e.getHook().sendMessageFormat("Now playing  `%s` by `%s` (link<%s>)", info.title, info.author, info.uri).queue();
+        } else if (e.getName().equals("fb")) {
+            if(e.getOption("content") == null) {
+                e.deferReply().queue();
+                e.getHook().sendMessage("you can't send nothing to the bot owner");
+                return;
+            }
+            String content = e.getOption("content").getAsString();
+            User user = e.getUser();
+            System.out.println(e.getUser().getName());
+            user.openPrivateChannel().complete().sendMessage(content).queue();
 
         }
 

@@ -25,6 +25,7 @@ public class Main {
         jda.upsertCommand("skip", "skip currently song").queue();
         jda.upsertCommand("clear", "Clear the tracks list").queue();
         jda.upsertCommand("info", "showing the info that now playing").queue();
+        jda.upsertCommand("fb", "send feedback to the bot owner").addOption(STRING, "content", "the feedback content").queue();
 
 
 
