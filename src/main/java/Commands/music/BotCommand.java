@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.managers.AudioManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import java.util.Objects;
 public class BotCommand extends ListenerAdapter {
     private AudioManager manager;
     private AudioChannel connectedChannel;
+
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent e) {
@@ -115,9 +117,24 @@ public class BotCommand extends ListenerAdapter {
                 return;
             }
             String content = e.getOption("content").getAsString();
-            User user = e.getUser();
+
+            File feedback = new File("feedbacks.txt");
+            try {
+                if(!feedback.exists()) {
+                    feedback.createNewFile();
+                }
+                PrintWriter out = new PrintWriter(new FileWriter(feedback, true));
+                out.append("User: " + e.getUser().getName() + " and feedback: " + content + "\n");
+                out.close();
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+
+
+//            if(file.is)
             System.out.println(e.getUser().getName());
-            user.openPrivateChannel().complete().sendMessage(content).queue();
+//            user.openPrivateChannel().complete().sendMessage("your message already sand to the bot `owner`, thank you so much for the bot improving!").queue();
 
         }
 
